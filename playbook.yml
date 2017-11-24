@@ -1,0 +1,102 @@
+---
+
+- hosts: 127.0.0.1
+  connection: local
+  become: true
+  become_user: root
+  tasks:
+
+  - name: Add docker key
+    raw: apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+  - name: Add node repo
+    raw: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
+  - name: Register MS sig key
+    raw: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+
+  - name: Register dotnet core source
+    raw: sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
+
+  - name: Register dotnet core source
+    raw: sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+  - name: Add apt repos
+    apt_repository:
+      repo: "{{ item }}"
+      state: present
+    with_items:
+      - deb http://ppa.launchpad.net/webupd8team/atom/ubuntu xenial main
+      - deb https://apt.dockerproject.org/repo ubuntu-xenial main
+
+  - name: Get from docker rep instead of Ubuntu repo
+    raw: apt-cache policy docker-ce
+
+  - name: Install packages
+    apt:
+      name: "{{ item }}"
+      update_cache: yes
+    with_items:
+      - atom
+      - vim
+      - virtualbox
+      - virtualbox-qt
+      - virtualbox-dkms
+      - docker-engine
+      - nodejs
+      - dotnet-sdk-2.0.2
+      - code
+
+  - name: Install vagrant
+    apt:
+      deb: https://releases.hashicorp.com/vagrant/2.0.1/vagrant_2.0.1_x86_64.deb
+
+  - name: Start docker
+    service:
+      name: docker
+      state: started
+
+  - name: Install docker compose
+    raw: curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+  - raw: chmod +x /usr/local/bin/docker-compose
+
+  - name: Ensure npm global packages are installed.
+    npm:
+      name: "{{ item }}"
+      global: yes
+      state: latest
+    environment:
+      NPM_CONFIG_UNSAFE_PERM: true
+    with_items:
+      - node-sass
+      - grunt
+      - bower
+      - karma
+      - mocha
+      - babel-cli
+      - nodemon
+      - flow-bin
+      - gulp
+      - flow-typed
+
+  - name:
+    unarchive:
+      src: https://download.jetbrains.com/resharper/JetBrains.Rider-2017.2.1.tar.gz
+      dest: /usr/local/bin/
+      remote_src: yes
+
+  - name: Create symbolic link to Rider script
+    file:
+      src: /usr/local/bin/JetBrains Rider-2017.2.1/bin/rider.sh
+      dest: /bin/rider
+      state: link
+
+  - name: Install winrm ruby gem
+    raw: gem install -r winrm
+
+  - name: Install vagrant winrm extension
+    raw: vagrant plugin install vagrant-winrm
+
+  - name: Init Vagrantfile
+    raw: vagrant up
