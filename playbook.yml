@@ -46,6 +46,7 @@
       - nodejs
       - dotnet-sdk-2.0.2
       - code
+      - xclip
 
   - name: Install vagrant
     apt:
@@ -97,6 +98,9 @@
 
   - name: Install vagrant winrm extension
     raw: vagrant plugin install vagrant-winrm
+
+  - name: Install vagrant vbquest plugin
+    raw: vagrant plugin install vagrant-vbguest
 
   - name: Init Vagrantfile
     raw: vagrant up

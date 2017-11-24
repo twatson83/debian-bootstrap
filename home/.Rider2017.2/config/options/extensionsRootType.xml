@@ -1,0 +1,8 @@
+<application>
+  <component name="ExtensionsRootType">
+    <pluginVersions>
+      <plugin id="com.intellij" version="RD-172.4144.1873" />
+      <plugin id="com.intellij.database" version="RD-172.4144.1873" />
+    </pluginVersions>
+  </component>
+</application>

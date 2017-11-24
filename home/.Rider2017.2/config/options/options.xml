@@ -1,0 +1,18 @@
+<application>
+  <component name="PropertiesComponent">
+    <property name="evlsprt3.172" value="13" />
+    <property name="ignoreUltimateEdition" value="true" />
+    <property name="RD.Init.Cfg.2" value="true" />
+    <property name="toolwindow.stripes.buttons.info.shown" value="true" />
+    <property name="RD.Init.DialogShown.Ide" value="true" />
+    <property name="last_selected_template_name" value="Console Application" />
+    <property name="last_selected_template_category" value=".NET Core" />
+    <property name="DeploymentNotificationsComponent.WarnDisplayed.Java7&amp;Windows7FTPIssue" value="false" />
+    <property name="ts.lib.d.ts.version" value="2.4.1" />
+    <property name="Default.savedEditorTheme" value="_@user_Default" />
+    <property name="Darcula.savedEditorTheme" value="_@user_Visual Studio Dark" />
+    <property name="change.laf.on.editor.theme.change" value="true" />
+    <property name="FileTemplates.SelectedTemplate" value="HTML File" />
+    <property name="ExpandBeforeRunStepsPanel" value="true" />
+  </component>
+</application>
