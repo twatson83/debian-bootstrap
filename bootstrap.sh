@@ -13,8 +13,8 @@ git config --global user.name twatson83
 git config --global user.email tswatson123@gmail.com
 
 echo "Pulling playbook from Github"
-git clone https://github.com/twatson83/debian-bootstrap.git 
+git clone https://github.com/twatson83/debian-bootstrap.git
 cd debian-bootstrap
 
 echo "Run playbook"
-ANSIBLE_NOCOWS=1 ansible-playbook playbook.yml 
+ANSIBLE_NOCOWS=1 ansible-playbook playbook.yml

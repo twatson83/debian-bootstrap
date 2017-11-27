@@ -47,6 +47,7 @@
       - dotnet-sdk-2.0.2
       - code
       - xclip
+      - python-pip
 
   - name: Install vagrant
     apt:
