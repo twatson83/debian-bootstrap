@@ -94,6 +94,26 @@
       dest: /bin/rider
       state: link
 
+  - name: Install ansible container
+    raw: sudo pip install ansible-container[docker]
+
+  - name: Get Packer
+    get_url:
+      validate_certs: no
+      url: https://releases.hashicorp.com/packer/1.1.2/packer_1.1.2_linux_amd64.zip
+      dest: /tmp/packer.zip
+
+  - name: Unzip packer
+    unarchive:
+      src: /tmp/packer.zip
+      dest: /usr/local/bin
+
+  - name: Create Packer symlink
+    file:
+      src: /usr/local/bin/packer
+      dest: /bin/packer
+      state: link
+
   - name: Install winrm ruby gem
     raw: gem install -r winrm
 
